@@ -1,0 +1,24 @@
+.flex {
+  display: flex;
+}
+
+.j-content {
+  justify-content: center;
+}
+
+.align-content {
+  align-items: center;
+}
+
+.invert{
+    filter: invert(1);
+}
+
+.hover{
+  cursor: pointer;
+}
+/* -------------------------TEMP---------------------------------- */
+
+.border {
+  border: 1px solid rgba(239, 133, 11, 0.74);
+}

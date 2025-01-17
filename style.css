@@ -1,0 +1,55 @@
+body {
+  background-color: black;
+}
+
+.navbar {
+  /* width: 100vw; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-center{
+  gap: 10px;
+}
+.container {
+  height: 100vh;
+  gap: 10px;
+}
+
+.svg {
+  height: 50px;
+  width: 30px;
+  color: white;
+}
+
+.login {
+  gap: 5px;
+}
+
+.login > a {
+  color: white;
+  text-decoration: none;
+}
+
+.searchinput{
+  width: 350px;
+  height: 40px;
+  background : url(assets/svg/serach.svg);
+  background-color: #2e2e2e;
+  background-position: 3% 50%;
+  background-repeat: no-repeat;
+  background-size: 20px,30px;
+  border: 1px ;
+  border-radius: 30px;
+  padding-left: 35px;
+  
+}
+
+
+.left {
+  width: 25vw;
+}
+
+.right {
+  width: 75vw;
+}
