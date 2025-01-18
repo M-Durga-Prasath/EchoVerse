@@ -16,10 +16,25 @@ body {
   gap: 10px;
 }
 
+.homecontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  background-color: #2e2e2e;
+}
+
 .svg {
-  height: 50px;
+  height: 45px;
   width: 30px;
   color: white;
+}
+
+.homecontainer > img{
+  height: 22px;
+  width: 30px;
 }
 
 .login {
@@ -45,6 +60,16 @@ body {
   
 }
 
+.login-btn{
+  width: 100px;
+  height: 40px;
+  border-radius: 45px;
+  transition: all 0.3s;
+  cursor: pointer;
+  background: white;
+  /* font-size: 1.2em; */
+  /* font-weight: 550; */
+}
 
 .left {
   width: 25vw;
