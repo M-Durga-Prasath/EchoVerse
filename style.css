@@ -8,7 +8,7 @@ body {
   justify-content: space-between;
 }
 
-.navbar-center{
+.navbar-center {
   gap: 10px;
 }
 .container {
@@ -16,7 +16,7 @@ body {
   gap: 10px;
 }
 
-.homecontainer{
+.homecontainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,13 +32,13 @@ body {
   color: white;
 }
 
-.homecontainer > img{
+.homecontainer > img {
   height: 22px;
   width: 30px;
 }
 
 .login {
-  gap: 5px;
+  gap: 15px;
 }
 
 .login > a {
@@ -46,21 +46,20 @@ body {
   text-decoration: none;
 }
 
-.searchinput{
+.searchinput {
   width: 350px;
   height: 40px;
-  background : url(assets/svg/serach.svg);
+  background: url(assets/svg/serach.svg);
   background-color: #2e2e2e;
   background-position: 3% 50%;
   background-repeat: no-repeat;
-  background-size: 20px,30px;
-  border: 1px ;
+  background-size: 20px, 30px;
+  border: 1px;
   border-radius: 30px;
   padding-left: 35px;
-  
 }
 
-.login-btn{
+.login-btn {
   width: 100px;
   height: 40px;
   border-radius: 45px;
@@ -80,8 +79,24 @@ body {
   padding: 20px;
 }
 
-.left-top{
-  
+.left-top {
+  filter: invert(1) brightness(0.7);
+  justify-content: space-between;
+}
+
+.library > img {
+  height: 25px;
+  width: 35px;
+}
+
+.library {
+  gap: 10px;
+}
+
+.plus {
+  position: relative;
+  top: 2px;
+  font-size: 1.6rem;
 }
 
 .right {
