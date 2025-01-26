@@ -22,6 +22,7 @@ body {
   /* isko yad rak le --------------------------------------------------- */
   /* height: 100vh; */
   gap: 10px;
+  overflow: hidden;
 }
 
 .homecontainer {
@@ -96,6 +97,8 @@ body {
 
 .left {
   width: 25vw;
+  /* --------------------------------------------------------------- */
+  /* height: fit-content;  */
   background-color: rgb(18, 18, 18);
   padding: 20px;
   display: flex;
@@ -133,6 +136,9 @@ body {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  position: relative;
+  /* top: 100px; */
+  
 }
 
 .left-footer > a {
@@ -148,15 +154,73 @@ body {
   filter: brightness(1);
 }
 
-.right{
+.right {
   width: 75vw; 
-  background-color: rgb(18, 18, 18);
+  background-color: rgb(8, 8, 8);
   padding: 20px;
+  max-height: 90vh; /* Restricts height to viewport */
+  overflow-y: auto; /* Only the `.right` div will scroll */
+  box-sizing: border-box; /* Padding included in height */
 }
 
-.right > span{
+
+.right > h2{
+  /* display: inline-block; */
   filter: invert(1) brightness(0.7);
   position: relative;
   bottom: 15px;
+  margin-bottom: 0px;
 }
 
+.card-container{
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 10px; */
+  row-gap: 20px;
+
+}
+
+.card{
+  width: fit-content;
+  border-radius: 5px;
+  color: #c0bdbd;
+  padding: 7px;
+}
+
+.card:hover{
+  background-color: rgb(30, 30, 30);
+}
+
+.card>img{
+  width: 155px;
+  height: 200px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.card > h3{
+  margin: 0px;
+}
+
+.card>p{
+  font-size: 0.9rem;
+  margin: 0px;
+}
+
+
+
+/* --------------------------Fancy Stuff-------------------------------- */
+.right::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.right::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(51, 50, 50);
+}
+
+.right::-webkit-scrollbar-track {
+  background-color: transparent;
+}
