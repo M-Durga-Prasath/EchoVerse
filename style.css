@@ -5,6 +5,9 @@ body {
   font-family: "Poppins", serif;
 }
 
+.seperation{
+  height:4px;
+}
 .navbar {
   /* width: 100vw; */
   display: flex;
@@ -14,6 +17,7 @@ body {
 .navbar-center {
   gap: 10px;
 }
+
 .container {
   /* isko yad rak le --------------------------------------------------- */
   /* height: 100vh; */
@@ -56,7 +60,7 @@ body {
 }
 
 .login > a:hover {
-  color: rgb(255, 255, 255); 
+  color: rgb(255, 255, 255);
   filter: brightness(1);
 }
 
@@ -64,6 +68,7 @@ body {
   width: 350px;
   height: 40px;
   background: url(assets/svg/serach.svg);
+  color: aliceblue;
   background-color: #2e2e2e;
   background-position: 5% 50%;
   background-repeat: no-repeat;
@@ -93,6 +98,9 @@ body {
   width: 25vw;
   background-color: rgb(18, 18, 18);
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .left-top {
@@ -121,25 +129,34 @@ body {
   font-size: 1.6rem;
 }
 
-.left-footer{
+.left-footer {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.left-footer > a{
+.left-footer > a {
   color: rgb(174, 179, 179);
   text-decoration: none;
   filter: brightness(0.7);
   font-size: 0.7rem;
-  transition: filter 0.3s ease, color 0.3s ease; 
+  transition: filter 0.3s ease, color 0.3s ease;
 }
 
 .left-footer > a:hover {
-  color: rgb(255, 255, 255); 
+  color: rgb(255, 255, 255);
   filter: brightness(1);
 }
 
-.right {
-  width: 75vw;
+.right{
+  width: 75vw; 
+  background-color: rgb(18, 18, 18);
+  padding: 20px;
 }
+
+.right > span{
+  filter: invert(1) brightness(0.7);
+  position: relative;
+  bottom: 15px;
+}
+
