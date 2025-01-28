@@ -41,6 +41,11 @@ body {
   color: white;
 }
 
+.icon{
+  position: relative;
+  left: 10px;
+}
+
 .homecontainer > img {
   height: 22px;
   width: 30px;
@@ -103,14 +108,14 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  /* gap: 40px; */
 }
 
 .left-top {
   display: flex;
   filter: invert(1) brightness(0.7);
   justify-content: space-between;
-  min-height: 50vh;
+  margin-bottom: 15px;
 }
 
 .library > img {
@@ -132,13 +137,15 @@ body {
   font-size: 1.6rem;
 }
 
+.music{
+  min-height: 65vh;
+  margin-bottom: 20px;
+}
+
 .left-footer {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  position: relative;
-  /* top: 100px; */
-  
 }
 
 .left-footer > a {
@@ -154,13 +161,14 @@ body {
   filter: brightness(1);
 }
 
+
 .right {
   width: 75vw; 
   background-color: rgb(8, 8, 8);
   padding: 20px;
-  max-height: 90vh; /* Restricts height to viewport */
-  overflow-y: auto; /* Only the `.right` div will scroll */
-  box-sizing: border-box; /* Padding included in height */
+  max-height: 100vh; 
+  overflow-y: auto;
+  box-sizing: border-box; 
 }
 
 
@@ -179,7 +187,8 @@ body {
   flex-wrap: wrap;
   /* gap: 10px; */
   row-gap: 20px;
-
+  padding: 10px;
+  
 }
 
 .card{
@@ -187,6 +196,8 @@ body {
   border-radius: 5px;
   color: #c0bdbd;
   padding: 7px;
+  position: relative;
+  overflow: hidden;
 }
 
 .card:hover{
@@ -209,8 +220,36 @@ body {
   margin: 0px;
 }
 
+.coldplay {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+  right: -7px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: bottom 0.2s ease-out, opacity 0.1s ease-out;
+}
 
+.coldplay:hover img {
+  filter: brightness(1.2);
+}
 
+.card:hover .coldplay {
+  opacity: 0.8;
+  bottom: 70px;
+}
+
+.coldplay img {
+  width: 40px;
+}
 /* --------------------------Fancy Stuff-------------------------------- */
 .right::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
