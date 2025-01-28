@@ -169,6 +169,7 @@ body {
   max-height: 90vh; 
   overflow-y: auto;
   box-sizing: border-box; 
+  position: relative;
 }
 
 
@@ -249,6 +250,21 @@ body {
 
 .coldplay img {
   width: 40px;
+}
+
+.controls{
+  position: fixed;
+  bottom: 20px;
+  right: 50px;
+  background-color: #c0bdbd;
+  width: 67%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.playbar > img{
+  height: 30px;
 }
 /* --------------------------Fancy Stuff-------------------------------- */
 .right::-webkit-scrollbar {
