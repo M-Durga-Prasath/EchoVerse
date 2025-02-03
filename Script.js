@@ -26,9 +26,18 @@ async function getsongs(){
 
 async function main(){
     let songs = await getsongs()
-    let musicdiv = document.querySelector('.music').getElementsByTagName('ul')[0];
+    console.log(songs)
+    let musicdiv = document.getElementsByClassName("music")[0];
+    musicdiv.innerHTML = "";
     for ( let song in songs) {
-        musicdiv.innerHTML = musicdiv.innerHTML + `<li>${song.replace(".mp3", " ")}</li>`;
+        let songName = song.replace(".mp3", "");
+        let songCard = `
+        <div class="card">
+            <div class="songimg">▶</div>
+            <p class="nameofsong">${songName}</p>
+        </div>
+    `;
+        musicdiv.innerHTML = musicdiv.innerHTML + songCard;
     };
     var audio = new Audio(songs[1])
     // audio.play()
