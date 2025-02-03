@@ -9,16 +9,30 @@ async function getsongs(){
     }
     let div = document.createElement("div");
     div.innerHTML = data
-    var songs = []
+    var songs = {}
     var s = div.getElementsByTagName("a")
     // console.log(s)
     for (let index = 0; index < s.length; index++) {
         if(s[index].title.endsWith(".mp3")){
             // console.log(s[index].title)
-            songs.push(s[index].title)
+            // songs.push(s[index].title)
+            songs[s[index].title] = s[index].href
         }
     }
-    console.log(songs)
+    // console.log(songs)
+    return songs
 }
 
-getsongs()
+
+async function main(){
+    let songs = await getsongs()
+    let musicdiv = document.querySelector('.music').getElementsByTagName('ul')[0];
+    for ( let song in songs) {
+        musicdiv.innerHTML = musicdiv.innerHTML + `<li>${song.replace(".mp3", " ")}</li>`;
+    };
+    var audio = new Audio(songs[1])
+    // audio.play()
+}
+
+
+main()
