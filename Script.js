@@ -1,4 +1,5 @@
 async function getsongs(){
+    // get songs form user 
     var response = await fetch("http://127.0.0.1:5500/songs/")
     if(response.ok){
         var data = await response.text()
@@ -14,7 +15,6 @@ async function getsongs(){
     // console.log(s)
     for (let index = 0; index < s.length; index++) {
         if(s[index].title.endsWith(".mp3")){
-            // console.log(s[index].title)
             // songs.push(s[index].title)
             songs[s[index].title] = s[index].href
         }
@@ -26,9 +26,11 @@ async function getsongs(){
 
 async function main(){
     let songs = await getsongs()
-    console.log(songs)
+    // console.log(songs) 
     let musicdiv = document.getElementsByClassName("music")[0];
     musicdiv.innerHTML = "";
+
+    //update teh songs library in teh left accordingly
     for ( let song in songs) {
         let songName = song.replace(".mp3", "");
         let songCard = `
