@@ -63,9 +63,11 @@ async function main() {
   playcontrol.addEventListener("click", () => {
     if (audio.paused) {
       audio.play();
+      playcontrol.src = "./assets/svg/pause.svg"
     } 
     else {
-        audio.pause();
+      audio.pause();
+      playcontrol.src = "./assets/svg/playcontorl.svg"
     }
   });
 }
