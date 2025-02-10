@@ -23,9 +23,12 @@ async function getsongs() {
   return songs;
 }
 
-function playmusic(link) {
+function playmusic(link,name) {
   audio.src = link;
   audio.play();
+  let playcontrol = document.getElementById("play");
+  playcontrol.src = "./assets/svg/pause.svg"
+  document.querySelector(".infobar").innerHTML = name.replace(".mp3","");     
 }
 
 async function main() {
@@ -52,7 +55,7 @@ async function main() {
     // console.log(sname);
     e.addEventListener("click", () => {
       // console.log(songs[sname]);
-      playmusic(songs[sname]);
+      playmusic(songs[sname], sname);
     });
   });
 
