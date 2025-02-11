@@ -368,14 +368,15 @@ body {
 }
 
 .circle{
-  transition: all 0.3s;
-  position: relative;
-  bottom: 3px;
-  left: 10%;
+  transition: left 0.3s linear;
+  position: absolute;
+  top: -3px;
+  left: 0%;
   height: 10px;
   width: 10px;
   border-radius: 50%;
   background-color: rgb(25, 169, 236);
+  cursor: pointer;
 }
 
 /* --------------------------Fancy Stuff-------------------------------- */

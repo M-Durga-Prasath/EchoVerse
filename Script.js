@@ -1,4 +1,7 @@
 var audio = new Audio();
+let isDragging = false;
+
+let musicCircle = document.querySelector(".circle");
 // get songs form user
 async function getsongs() {
   var response = await fetch("http://127.0.0.1:5500/songs/");
@@ -37,14 +40,28 @@ function playmusic(link, name) {
   let playcontrol = document.getElementById("play");
   playcontrol.src = "./assets/svg/pause.svg";
   document.querySelector(".infobar").innerHTML = name.replace(".mp3", "");
-
+  musicCircle.style.left = "0%";
   audio.addEventListener("timeupdate", () => {
     // console.log(audio.currentTime, audio.duration);
     document.querySelector(
       ".timespan"
     ).innerHTML = `${formatTime(audio.currentTime)}/${formatTime(audio.duration)}`;
+    document.querySelector(".circle").style.left = (audio.currentTime/audio.duration)*100 +"%" ;
   });
 }
+
+function moveCircle(e) {
+  const rect = document.getElementsByClassName("seekbar")[0].getBoundingClientRect();
+  let offsetX = e.clientX - rect.left; 
+  offsetX = Math.max(0, Math.min(offsetX, rect.width));
+  
+  const progressPercent = (offsetX / rect.width) * 100;
+  musicCircle.style.left = progressPercent + "%";
+  if (!isNaN(audio.duration)) {
+    audio.currentTime = (progressPercent / 100) * audio.duration;
+  }
+}
+
 
 async function main() {
   let songs = await getsongs();
@@ -84,6 +101,26 @@ async function main() {
       audio.pause();
       playcontrol.src = "./assets/svg/playcontorl.svg";
     }
+  });
+
+  musicCircle.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    moveCircle(e); 
+    
+  });
+  
+  // Mouse move: Move the circle if dragging
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      musicCircle.style.transition = "left linear";
+      moveCircle(e);
+    }
+  });
+  
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    void musicCircle.offsetWidth;
+    musicCircle.style.transition = "left 0.3s linear";
   });
 }
 
