@@ -1,6 +1,6 @@
 var audio = new Audio();
+// get songs form user
 async function getsongs() {
-  // get songs form user
   var response = await fetch("http://127.0.0.1:5500/songs/");
   if (response.ok) {
     var data = await response.text();
@@ -8,11 +8,11 @@ async function getsongs() {
   } else {
     console.log("Eroor retreving teh songs");
   }
+
   let div = document.createElement("div");
   div.innerHTML = data;
   var songs = {};
   var s = div.getElementsByTagName("a");
-  // console.log(s)
   for (let index = 0; index < s.length; index++) {
     if (s[index].title.endsWith(".mp3")) {
       // songs.push(s[index].title)
@@ -23,12 +23,27 @@ async function getsongs() {
   return songs;
 }
 
-function playmusic(link,name) {
+//FORMAT SECONDS TO 00:00 FORMAT
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+// PLAY MUSIC AND UPDATE TEH TIMER AND NAME IN CONTROLS SECTION
+function playmusic(link, name) {
   audio.src = link;
   audio.play();
   let playcontrol = document.getElementById("play");
-  playcontrol.src = "./assets/svg/pause.svg"
-  document.querySelector(".infobar").innerHTML = name.replace(".mp3","");     
+  playcontrol.src = "./assets/svg/pause.svg";
+  document.querySelector(".infobar").innerHTML = name.replace(".mp3", "");
+
+  audio.addEventListener("timeupdate", () => {
+    // console.log(audio.currentTime, audio.duration);
+    document.querySelector(
+      ".timespan"
+    ).innerHTML = `${formatTime(audio.currentTime)}/${formatTime(audio.duration)}`;
+  });
 }
 
 async function main() {
@@ -52,9 +67,7 @@ async function main() {
   Array.from(musicdiv.getElementsByClassName("card")).forEach((e) => {
     // console.log(e);
     let sname = e.getElementsByClassName("nameofsong")[0].innerHTML + ".mp3";
-    // console.log(sname);
     e.addEventListener("click", () => {
-      // console.log(songs[sname]);
       playmusic(songs[sname], sname);
     });
   });
@@ -66,11 +79,10 @@ async function main() {
   playcontrol.addEventListener("click", () => {
     if (audio.paused) {
       audio.play();
-      playcontrol.src = "./assets/svg/pause.svg"
-    } 
-    else {
+      playcontrol.src = "./assets/svg/pause.svg";
+    } else {
       audio.pause();
-      playcontrol.src = "./assets/svg/playcontorl.svg"
+      playcontrol.src = "./assets/svg/playcontorl.svg";
     }
   });
 }
