@@ -16,11 +16,10 @@ document.getElementById("move").addEventListener("click", () => {
   box.style.transition = "none";                  // 1️⃣ Disable transition
   box.style.transform = "translateX(200px)";     // 2️⃣ Move instantly
 
-  void box.offsetWidth;                          // 3️⃣ Force reflow
+  void box.offsetWidth;                         
 
-  // 4️⃣ Apply the transition after a minimal delay
   setTimeout(() => {
-    box.style.transition = "transform 1s";       // 5️⃣ Re-enable transition
+    box.style.transition = "transform 1s";      
     box.style.transform = "translateX(0px)";     // 6️⃣ Move back smoothly
   }, 1);
 });
