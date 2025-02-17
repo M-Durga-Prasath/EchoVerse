@@ -380,10 +380,7 @@ body {
   cursor: pointer;
 }
  .hamburger-close{
-  width: 30px;
-  cursor: pointer;
-  z-index: 1001;
-  margin-bottom: 20px;
+  display: none;
 }
 
 
@@ -444,6 +441,12 @@ body {
   }
   .hamburger{
     display: block;
+  }
+  .hamburger-close{
+    width: 30px;
+    cursor: pointer;
+    z-index: 1001;
+    margin-bottom: 20px;
   }
 }
 
