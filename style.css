@@ -108,6 +108,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  transition: left 0.4s ease-in-out; 
   /* gap: 40px; */
 }
 
@@ -378,6 +379,28 @@ body {
   background-color: rgb(25, 169, 236);
   cursor: pointer;
 }
+ .hamburger-close{
+  width: 30px;
+  cursor: pointer;
+  z-index: 1001;
+  margin-bottom: 20px;
+}
+
+
+.hamburger{
+  display: none;
+}
+
+.left.active {
+  left: 0;
+  width: 40vw;
+  height: 90vh; 
+}
+
+.right.blur {
+  filter: brightness(0.4);
+  transition: filter 0.3s ease-in-out;
+}
 
 /* --------------------------Fancy Stuff-------------------------------- */
 .right::-webkit-scrollbar {
@@ -419,12 +442,17 @@ body {
   .right{
       width: 100vw;
   }
+  .hamburger{
+    display: block;
+  }
 }
 
 @media (max-width:850px){
   .searchinput {
     width: 150px;
   }
+
+
   /* .login{ */
     /* display: none; */
   /* } */

@@ -122,6 +122,22 @@ async function main() {
     void musicCircle.offsetWidth;
     musicCircle.style.transition = "left 0.3s linear";
   });
+
+  let openHamburger = document.querySelector(".hamburger");
+  let closeHamburger = document.querySelector(".hamburger-close");
+  let leftBar = document.querySelector(".left");
+  let rightSection = document.querySelector(".right");
+
+  openHamburger.addEventListener("click", () => {
+    leftBar.classList.add("active");
+    rightSection.classList.add("blur");
+  }
+  )
+  closeHamburger.addEventListener("click", () => {
+    leftBar.classList.remove("active");
+    rightSection.classList.remove("blur");
+  }
+  )
 }
 
 main();
