@@ -55,6 +55,7 @@ function moveCircle(e) {
   let offsetX = e.clientX - rect.left; 
   offsetX = Math.max(0, Math.min(offsetX, rect.width));
   
+
   const progressPercent = (offsetX / rect.width) * 100;
   musicCircle.style.left = progressPercent + "%";
   if (!isNaN(audio.duration)) {
@@ -105,23 +106,22 @@ async function main() {
 
   musicCircle.addEventListener("mousedown", (e) => {
     isDragging = true;
-    moveCircle(e); 
-    
-  });
-  
-  // Mouse move: Move the circle if dragging
-  document.addEventListener("mousemove", (e) => {
+    dragStartTime = Date.now(); // Track when dragging started
+    moveCircle(e);
+});
+
+document.addEventListener("mousemove", (e) => {
     if (isDragging) {
-      musicCircle.style.transition = "left linear";
-      moveCircle(e);
+        musicCircle.style.transition = "none";
+        moveCircle(e);
     }
-  });
-  
-  document.addEventListener("mouseup", () => {
+});
+
+document.addEventListener("mouseup", () => {
     isDragging = false;
-    void musicCircle.offsetWidth;
+    void musicCircle.offsetWidth; // Force reflow to apply transition properly
     musicCircle.style.transition = "left 0.3s linear";
-  });
+});
 
   let openHamburger = document.querySelector(".hamburger");
   let closeHamburger = document.querySelector(".hamburger-close");
@@ -136,6 +136,19 @@ async function main() {
   closeHamburger.addEventListener("click", () => {
     leftBar.classList.remove("active");
     rightSection.classList.remove("blur");
+  }
+  )
+
+  document.querySelector(".seekbar").addEventListener("click", (e) => {
+    let seekbar = e.currentTarget.getBoundingClientRect();
+    let circle = document.querySelector(".circle");
+
+    let percent = ((e.clientX - seekbar.left)/seekbar.width) * 100;
+    circle.style.left = `${percent}%`;
+
+    if (!isNaN(audio.duration)) {
+      audio.currentTime = (percent / 100) * audio.duration;
+  }
   }
   )
 }

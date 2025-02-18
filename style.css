@@ -362,8 +362,7 @@ body {
   height: 3.6px;
   background-color: wheat;
   width: 80%;
-  /* border-radius: 5px; */
-  border-radius:50%;
+  border-radius: 15px;
   
   top: 10px;
 }
@@ -442,7 +441,9 @@ body {
   .hamburger{
     display: block;
   }
+
   .hamburger-close{
+    display: block;
     width: 30px;
     cursor: pointer;
     z-index: 1001;
