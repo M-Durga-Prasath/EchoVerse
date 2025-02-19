@@ -41,6 +41,7 @@ function playmusic(link, name) {
   playcontrol.src = "./assets/svg/pause.svg";
   document.querySelector(".infobar").innerHTML = name.replace(".mp3", "");
   musicCircle.style.left = "0%";
+
   audio.addEventListener("timeupdate", () => {
     // console.log(audio.currentTime, audio.duration);
     document.querySelector(
@@ -66,6 +67,9 @@ function moveCircle(e) {
 
 async function main() {
   let songs = await getsongs();
+  let songarray = Object.keys(songs);
+  let cuurentindex = 0;
+
   // console.log(songs)
   let musicdiv = document.getElementsByClassName("music")[0];
   musicdiv.innerHTML = "";
@@ -87,12 +91,37 @@ async function main() {
     let sname = e.getElementsByClassName("nameofsong")[0].innerHTML + ".mp3";
     e.addEventListener("click", () => {
       playmusic(songs[sname], sname);
+      cuurentindex = songarray.indexOf(sname);
     });
   });
 
   let prevcontrol = document.getElementById("prev");
   let playcontrol = document.getElementById("play");
   let nextcontrol = document.getElementById("next");
+
+  prevcontrol.addEventListener("click", () => {
+    if (cuurentindex == 0){
+      cuurentindex = songarray.length -1;
+    }
+    else{
+      cuurentindex--;
+    }
+    playmusic(songs[songarray[cuurentindex]], songarray[cuurentindex]);
+    // console.log(cuurentindex);
+    // console.log(songarray);
+  }
+  )
+
+  nextcontrol.addEventListener("click", () => {
+    if (cuurentindex == songarray.length-1){
+      cuurentindex = 0;
+    }
+    else{
+      cuurentindex++;
+    }
+    playmusic(songs[songarray[cuurentindex]], songarray[cuurentindex]);
+  }
+  )
 
   playcontrol.addEventListener("click", () => {
     if (audio.paused) {
