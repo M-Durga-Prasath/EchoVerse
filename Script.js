@@ -64,6 +64,11 @@ function moveCircle(e) {
   }
 }
 
+function updateFill(slider) {
+  const fillPercent = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.setProperty('--fill-percent', `${fillPercent}%`);
+}
+
 
 async function main() {
   let songs = await getsongs();
@@ -180,6 +185,14 @@ document.addEventListener("mouseup", () => {
   }
   }
   )
+
+  const slider = document.querySelector('.dark-range-slider');
+  updateFill(slider);
+  slider.addEventListener("input", (event)=> {
+    // console.log(event.target.value/100);
+    let vol = event.target.value/100
+    audio.volume = vol;
+  });
 }
 
 main();
