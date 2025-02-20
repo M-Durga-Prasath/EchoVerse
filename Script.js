@@ -30,7 +30,7 @@ async function getsongs(folder) {
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
-  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
 // PLAY MUSIC AND UPDATE TEH TIMER AND NAME IN CONTROLS SECTION
@@ -44,18 +44,20 @@ function playmusic(link, name) {
 
   audio.addEventListener("timeupdate", () => {
     // console.log(audio.currentTime, audio.duration);
-    document.querySelector(
-      ".timespan"
-    ).innerHTML = `${formatTime(audio.currentTime)}/${formatTime(audio.duration)}`;
-    document.querySelector(".circle").style.left = (audio.currentTime/audio.duration)*100 +"%" ;
+    document.querySelector(".timespan").innerHTML = `${formatTime(
+      audio.currentTime
+    )}/${formatTime(audio.duration)}`;
+    document.querySelector(".circle").style.left =
+      (audio.currentTime / audio.duration) * 100 + "%";
   });
 }
 
 function moveCircle(e) {
-  const rect = document.getElementsByClassName("seekbar")[0].getBoundingClientRect();
-  let offsetX = e.clientX - rect.left; 
+  const rect = document
+    .getElementsByClassName("seekbar")[0]
+    .getBoundingClientRect();
+  let offsetX = e.clientX - rect.left;
   offsetX = Math.max(0, Math.min(offsetX, rect.width));
-  
 
   const progressPercent = (offsetX / rect.width) * 100;
   musicCircle.style.left = progressPercent + "%";
@@ -65,26 +67,29 @@ function moveCircle(e) {
 }
 
 function updateFill(slider) {
-  const fillPercent = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-  slider.style.setProperty('--fill-percent', `${fillPercent}%`);
+  const fillPercent =
+    ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+  slider.style.setProperty("--fill-percent", `${fillPercent}%`);
 }
 
-
 async function main() {
+  let songs;
   let folder;
   document.querySelectorAll(".card").forEach((card) => {
-    card.addEventListener("click", () => {
+    card.addEventListener("click", async () => {
       // console.log(card.dataset.folder);
-      folder = card.dataset.folder
-      console.log(folder)
+      folder = card.dataset.folder;
+      console.log(folder);
+      songs = await getsongs(folder);
+      songui(songs);
     });
   });
+}
 
+let cuurentindex = 0;
 
-  let songs = await getsongs(folder);
+function songui(songs) {
   let songarray = Object.keys(songs);
-  let cuurentindex = 0;
-
   // console.log(songs)
   let musicdiv = document.getElementsByClassName("music")[0];
   musicdiv.innerHTML = "";
@@ -115,28 +120,24 @@ async function main() {
   let nextcontrol = document.getElementById("next");
 
   prevcontrol.addEventListener("click", () => {
-    if (cuurentindex == 0){
-      cuurentindex = songarray.length -1;
-    }
-    else{
+    if (cuurentindex == 0) {
+      cuurentindex = songarray.length - 1;
+    } else {
       cuurentindex--;
     }
     playmusic(songs[songarray[cuurentindex]], songarray[cuurentindex]);
     // console.log(cuurentindex);
     // console.log(songarray);
-  }
-  )
+  });
 
   nextcontrol.addEventListener("click", () => {
-    if (cuurentindex == songarray.length-1){
+    if (cuurentindex == songarray.length - 1) {
       cuurentindex = 0;
-    }
-    else{
+    } else {
       cuurentindex++;
     }
     playmusic(songs[songarray[cuurentindex]], songarray[cuurentindex]);
-  }
-  )
+  });
 
   playcontrol.addEventListener("click", () => {
     if (audio.paused) {
@@ -152,20 +153,20 @@ async function main() {
     isDragging = true;
     dragStartTime = Date.now(); // Track when dragging started
     moveCircle(e);
-});
+  });
 
-document.addEventListener("mousemove", (e) => {
+  document.addEventListener("mousemove", (e) => {
     if (isDragging) {
-        musicCircle.style.transition = "none";
-        moveCircle(e);
+      musicCircle.style.transition = "none";
+      moveCircle(e);
     }
-});
+  });
 
-document.addEventListener("mouseup", () => {
+  document.addEventListener("mouseup", () => {
     isDragging = false;
     void musicCircle.offsetWidth; // Force reflow to apply transition properly
     musicCircle.style.transition = "left 0.3s linear";
-});
+  });
 
   let openHamburger = document.querySelector(".hamburger");
   let closeHamburger = document.querySelector(".hamburger-close");
@@ -175,37 +176,31 @@ document.addEventListener("mouseup", () => {
   openHamburger.addEventListener("click", () => {
     leftBar.classList.add("active");
     rightSection.classList.add("blur");
-  }
-  )
+  });
   closeHamburger.addEventListener("click", () => {
     leftBar.classList.remove("active");
     rightSection.classList.remove("blur");
-  }
-  )
+  });
 
   document.querySelector(".seekbar").addEventListener("click", (e) => {
     let seekbar = e.currentTarget.getBoundingClientRect();
     let circle = document.querySelector(".circle");
 
-    let percent = ((e.clientX - seekbar.left)/seekbar.width) * 100;
+    let percent = ((e.clientX - seekbar.left) / seekbar.width) * 100;
     circle.style.left = `${percent}%`;
 
     if (!isNaN(audio.duration)) {
       audio.currentTime = (percent / 100) * audio.duration;
-  }
-  }
-  )
-
-  const slider = document.querySelector('.dark-range-slider');
-  updateFill(slider);
-  slider.addEventListener("input", (event)=> {
-    // console.log(event.target.value/100);
-    let vol = event.target.value/100
-    audio.volume = vol;
+    }
   });
 
-
-  
+  const slider = document.querySelector(".dark-range-slider");
+  updateFill(slider);
+  slider.addEventListener("input", (event) => {
+    // console.log(event.target.value/100);
+    let vol = event.target.value / 100;
+    audio.volume = vol;
+  });
 }
 
 main();
