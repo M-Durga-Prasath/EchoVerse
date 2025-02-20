@@ -3,8 +3,8 @@ let isDragging = false;
 
 let musicCircle = document.querySelector(".circle");
 // get songs form user
-async function getsongs() {
-  var response = await fetch("http://127.0.0.1:5500/songs/");
+async function getsongs(folder) {
+  var response = await fetch(`http://127.0.0.1:5500/songs/${folder}`);
   if (response.ok) {
     var data = await response.text();
     // console.log(data)
@@ -71,7 +71,17 @@ function updateFill(slider) {
 
 
 async function main() {
-  let songs = await getsongs();
+  let folder;
+  document.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", () => {
+      // console.log(card.dataset.folder);
+      folder = card.dataset.folder
+      console.log(folder)
+    });
+  });
+
+
+  let songs = await getsongs(folder);
   let songarray = Object.keys(songs);
   let cuurentindex = 0;
 
@@ -193,6 +203,9 @@ document.addEventListener("mouseup", () => {
     let vol = event.target.value/100
     audio.volume = vol;
   });
+
+
+  
 }
 
 main();
