@@ -14,6 +14,7 @@ async function getsongs(folder) {
 
   let div = document.createElement("div");
   div.innerHTML = data;
+  // console.log(div);
   var songs = {};
   var s = div.getElementsByTagName("a");
   for (let index = 0; index < s.length; index++) {
@@ -35,21 +36,38 @@ function formatTime(seconds) {
 
 // PLAY MUSIC AND UPDATE TEH TIMER AND NAME IN CONTROLS SECTION
 function playmusic(link, name) {
+  audio.pause(); // Pause any previous track
+
+  if (!link) {
+    console.error("Invalid song URL");
+    return;
+  }
+
   audio.src = link;
-  audio.play();
+  audio.load(); // Ensure metadata is loaded before playing
+
+  audio.oncanplay = () => {
+    audio.play().catch((error) => console.error("Playback error:", error));
+  };
+
   let playcontrol = document.getElementById("play");
-  playcontrol.src = "./assets/svg/pause.svg";
+  if (playcontrol) {
+    playcontrol.src = "./assets/svg/pause.svg";
+  }
+
   document.querySelector(".infobar").innerHTML = name.replace(".mp3", "");
   musicCircle.style.left = "0%";
 
-  audio.addEventListener("timeupdate", () => {
-    // console.log(audio.currentTime, audio.duration);
-    document.querySelector(".timespan").innerHTML = `${formatTime(
-      audio.currentTime
-    )}/${formatTime(audio.duration)}`;
-    document.querySelector(".circle").style.left =
-      (audio.currentTime / audio.duration) * 100 + "%";
-  });
+  audio.removeEventListener("timeupdate", updateTime);
+  audio.addEventListener("timeupdate", updateTime);
+}
+
+function updateTime() {
+  document.querySelector(".timespan").innerHTML = `${formatTime(
+    audio.currentTime
+  )}/${formatTime(audio.duration)}`;
+  document.querySelector(".circle").style.left =
+    (audio.currentTime / audio.duration) * 100 + "%";
 }
 
 function moveCircle(e) {
@@ -72,25 +90,11 @@ function updateFill(slider) {
   slider.style.setProperty("--fill-percent", `${fillPercent}%`);
 }
 
-async function main() {
-  let songs;
-  let folder;
-  document.querySelectorAll(".card").forEach((card) => {
-    card.addEventListener("click", async () => {
-      // console.log(card.dataset.folder);
-      folder = card.dataset.folder;
-      console.log(folder);
-      songs = await getsongs(folder);
-      songui(songs);
-    });
-  });
-}
-
 let cuurentindex = 0;
 
 function songui(songs) {
   let songarray = Object.keys(songs);
-  // console.log(songs)
+  // console.log(songarray);
   let musicdiv = document.getElementsByClassName("music")[0];
   musicdiv.innerHTML = "";
 
@@ -119,15 +123,22 @@ function songui(songs) {
   let playcontrol = document.getElementById("play");
   let nextcontrol = document.getElementById("next");
 
+  prevcontrol.replaceWith(prevcontrol.cloneNode(true)); // Reset event listener
+  nextcontrol.replaceWith(nextcontrol.cloneNode(true));
+  playcontrol.replaceWith(playcontrol.cloneNode(true));
+
+  prevcontrol = document.getElementById("prev");
+  nextcontrol = document.getElementById("next");
+  playcontrol = document.getElementById("play");
+
   prevcontrol.addEventListener("click", () => {
     if (cuurentindex == 0) {
       cuurentindex = songarray.length - 1;
     } else {
       cuurentindex--;
     }
+    // console.log(songs[songarray[cuurentindex]], songarray[cuurentindex]);
     playmusic(songs[songarray[cuurentindex]], songarray[cuurentindex]);
-    // console.log(cuurentindex);
-    // console.log(songarray);
   });
 
   nextcontrol.addEventListener("click", () => {
@@ -136,6 +147,7 @@ function songui(songs) {
     } else {
       cuurentindex++;
     }
+    // console.log(songs[songarray[cuurentindex]], songarray[cuurentindex]);
     playmusic(songs[songarray[cuurentindex]], songarray[cuurentindex]);
   });
 
@@ -201,6 +213,59 @@ function songui(songs) {
     let vol = event.target.value / 100;
     audio.volume = vol;
   });
+}
+
+async function main() {
+  let songs;
+  let folder;
+  document.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", async () => {
+      // console.log(card.dataset.folder);
+      folder = card.dataset.folder;
+      // console.log(folder);
+      songs = await getsongs(folder);
+      songui(songs);
+    });
+  });
+
+  let cardcontainer = document.querySelector(".card-container");
+  document.addEventListener("DOMContentLoaded", async () => {
+    let info = [];
+    let res = await fetch("http://127.0.0.1:5500/songs");
+    let text = await res.text(); 
+
+    // console.log(text);
+    let parse = new DOMParser();
+    let docs = parse.parseFromString(text, "text/html");
+
+    console.log(docs);
+    let folders = [...docs.querySelectorAll(".icon-directory")];
+
+    let folderNames = folders
+    .map(element => element.querySelector(".name")?.textContent.trim())
+    .filter(name => name !== "..");
+
+    info = await Promise.all(folderNames.map( async (element) => {
+      let infojson = await fetch(`http://127.0.0.1:5500/songs/${element}/info.json`);
+      infojson = await infojson.json();
+      return { element, data: infojson };
+    }
+    ));
+    
+    console.log(info)
+   for (let index = 0; index < info.length; index++) {
+      cardcontainer.innerHTML += `<div data-folder="${info[index].element}" class="card hover">
+            <img
+              src="./assets/pics/Screenshot 2025-01-05 132910.png"
+              alt="title"
+            />
+            <h3>${info[index].data["Title"]}</h3>
+            <button class="coldplay"><img src="./assets/svg/play.svg" alt="play"></button>
+            <p>${info[index].data["Desc"]}</p>
+          </div>`
+    }
+});
+
 }
 
 main();
