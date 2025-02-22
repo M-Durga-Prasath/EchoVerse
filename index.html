@@ -3,23 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/public/assets/svg/headlogo.png" sizes="96x96" />
-    <link rel="stylesheet" href="utility-class.css" />
-    <link rel="stylesheet" href="style.css" />
-    <title>EchoVerse- Where every beat finds its voice.</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/svg/headlogo.png"
+      sizes="96x96"
+    />
+    <link rel="stylesheet" href="/utility-class.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>EchoVerse - Where every beat finds its voice.</title>
   </head>
   <body>
     <div class="navbar flex">
       <div class="icon">
-        <img
-          class="svg hover"
-          src="/public/assets/svg/logo.svg"
-          alt="spotify icon"
-        />
+        <img class="svg hover" src="/assets/svg/logo.svg" alt="spotify icon" />
       </div>
       <div class="navbar-center flex align-content">
         <div class="homecontainer">
-          <img class="svg invert hover" src="/public/assets/svg/home.svg" alt="Home" />
+          <img class="svg invert hover" src="/assets/svg/home.svg" alt="Home" />
         </div>
         <input
           type="text"
@@ -32,23 +33,28 @@
         <button class="login-btn">Log in</button>
       </div>
     </div>
-    <div class="seperation">
-      
-    </div>
+
+    <div class="seperation"></div>
+
     <div class="container flex j-content">
       <div class="left border">
-        
-        <img class="invert hamburger-close" src="/assets/svg/hamburger.svg" alt="hamburgermenu">
+        <img
+          class="invert hamburger-close"
+          src="/assets/svg/hamburger.svg"
+          alt="hamburgermenu"
+        />
         <div class="left-top">
-          
           <div class="library hover flex">
-            <img class="svg hover" src="/public/assets/svg/librray.svg" alt="librray" />
+            <img
+              class="svg hover"
+              src="/assets/svg/librray.svg"
+              alt="library"
+            />
             Your library
           </div>
           <div class="plus">+</div>
         </div>
-        <div class="music">
-        </div>
+        <div class="music"></div>
         <div class="left-footer">
           <a href="#">Legal</a>
           <a href="#">Safety &amp; Privacy Center</a>
@@ -59,35 +65,47 @@
         </div>
       </div>
       <div class="right border">
-        <img class="invert hamburger" src="/public/assets/svg/hamburger.svg" alt="hamburgermenu">
+        <img
+          class="invert hamburger"
+          src="/assets/svg/hamburger.svg"
+          alt="hamburgermenu"
+        />
         <h2>Your Playlists</h2>
-        <div class="card-container">
-          
-        </div>
+        <div class="card-container"></div>
         <div class="controls">
           <div class="playbar">
             <div class="infobar"></div>
             <div class="musiccontrols hover">
-              <img id ="prev" src="/public/assets/svg/prev.svg" alt="before">
-              <img id="play" src="/public/assets/svg/playcontorl.svg" alt="play">
-              <img id = "next" src="/public/assets/svg/after.svg" alt="after">
+              <img id="prev" src="/assets/svg/prev.svg" alt="previous" />
+              <img id="play" src="/assets/svg/playcontorl.svg" alt="play" />
+              <img id="next" src="/assets/svg/after.svg" alt="next" />
             </div>
-            <div class="timespan  hover"></div>
-            </div>
-            <div class="seekbar hover">
-              <div class="circle"></div>
-            </div>
-            <div class="volume">
-              <img class="invert" src="/public/assets/svg/volumefull.svg" alt="volume full">
-              <div class="slider-container">
-                <input type="range" class="dark-range-slider" min="0" max="100" value="50" oninput="updateFill(this)">
-              </div>
+            <div class="timespan hover"></div>
+          </div>
+          <div class="seekbar hover">
+            <div class="circle"></div>
+          </div>
+          <div class="volume">
+            <img
+              class="invert"
+              src="/assets/svg/volumefull.svg"
+              alt="volume full"
+            />
+            <div class="slider-container">
+              <input
+                type="range"
+                class="dark-range-slider"
+                min="0"
+                max="100"
+                value="50"
+                oninput="updateFill(this)"
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script src="Script.js"></script>
+
+    <script src="/Script.js"></script>
   </body>
 </html>
-
