@@ -4,7 +4,7 @@ let isDragging = false;
 let musicCircle = document.querySelector(".circle");
 // get songs form user
 async function getsongs(folder) {
-  var response = await fetch(`/songs/${folder}`);
+  var response = await fetch(`/public/songs/${folder}`);
   if (response.ok) {
     var data = await response.text();
     // console.log(data)
@@ -154,10 +154,10 @@ function songui(songs) {
   playcontrol.addEventListener("click", () => {
     if (audio.paused) {
       audio.play();
-      playcontrol.src = "/assets/svg/pause.svg";
+      playcontrol.src = "public/assets/svg/pause.svg";
     } else {
       audio.pause();
-      playcontrol.src = "/assets/svg/playcontorl.svg";
+      playcontrol.src = "public/assets/svg/playcontorl.svg";
     }
   });
 
@@ -226,7 +226,7 @@ async function main() {
   let cardcontainer = document.querySelector(".card-container");
   document.addEventListener("DOMContentLoaded", async () => {
     let info = [];
-    let res = await fetch("/songs");
+    let res = await fetch("/public/songs");
     let text = await res.text(); 
 
     // console.log(text);
@@ -241,7 +241,7 @@ async function main() {
     .filter(name => name !== "..");
 
     info = await Promise.all(folderNames.map( async (element) => {
-      let infojson = await fetch(`/songs/${element}/info.json`);
+      let infojson = await fetch(`/public/songs/${element}/info.json`);
       infojson = await infojson.json();
       return { element, data: infojson };
     }
@@ -252,11 +252,11 @@ async function main() {
      console.log(info[index].element)
       cardcontainer.innerHTML += `<div data-folder="${info[index].element}" class="card hover">
             <img
-              src="/songs/${info[index].element}/cover.png"
+              src="/public/songs/${info[index].element}/cover.png"
               alt="title"
             />
             <h3>${info[index].data["Title"]}</h3>
-            <button class="coldplay"><img src="/assets/svg/play.svg" alt="play"></button>
+            <button class="coldplay"><img src="/public/assets/svg/play.svg" alt="play"></button>
             <p>${info[index].data["Desc"]}</p>
           </div>`
     }
