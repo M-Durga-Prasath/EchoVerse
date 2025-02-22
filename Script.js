@@ -215,19 +215,14 @@ function songui(songs) {
   });
 }
 
+
+function loadalbum(){
+  
+}
+
 async function main() {
   let songs;
   let folder;
-  document.querySelectorAll(".card").forEach((card) => {
-    card.addEventListener("click", async () => {
-      // console.log(card.dataset.folder);
-      folder = card.dataset.folder;
-      // console.log(folder);
-      songs = await getsongs(folder);
-      songui(songs);
-    });
-  });
-
   let cardcontainer = document.querySelector(".card-container");
   document.addEventListener("DOMContentLoaded", async () => {
     let info = [];
@@ -238,7 +233,7 @@ async function main() {
     let parse = new DOMParser();
     let docs = parse.parseFromString(text, "text/html");
 
-    console.log(docs);
+    // console.log(docs);
     let folders = [...docs.querySelectorAll(".icon-directory")];
 
     let folderNames = folders
@@ -252,11 +247,12 @@ async function main() {
     }
     ));
     
-    console.log(info)
+    // console.log(info)
    for (let index = 0; index < info.length; index++) {
+     console.log(info[index].element)
       cardcontainer.innerHTML += `<div data-folder="${info[index].element}" class="card hover">
             <img
-              src="./assets/pics/Screenshot 2025-01-05 132910.png"
+              src="./songs/${info[index].element}/cover.png"
               alt="title"
             />
             <h3>${info[index].data["Title"]}</h3>
@@ -264,6 +260,15 @@ async function main() {
             <p>${info[index].data["Desc"]}</p>
           </div>`
     }
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", async () => {
+        // console.log(card.dataset.folder);
+        folder = card.dataset.folder;
+        // console.log(folder);
+        songs = await getsongs(folder);
+        songui(songs);
+      });
+    });
 });
 
 }
