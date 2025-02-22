@@ -4,7 +4,7 @@ let isDragging = false;
 let musicCircle = document.querySelector(".circle");
 // get songs form user
 async function getsongs(folder) {
-  var response = await fetch(`http://127.0.0.1:5500/songs/${folder}`);
+  var response = await fetch(`/songs/${folder}`);
   if (response.ok) {
     var data = await response.text();
     // console.log(data)
@@ -226,7 +226,7 @@ async function main() {
   let cardcontainer = document.querySelector(".card-container");
   document.addEventListener("DOMContentLoaded", async () => {
     let info = [];
-    let res = await fetch("http://127.0.0.1:5500/songs");
+    let res = await fetch("/songs");
     let text = await res.text(); 
 
     // console.log(text);
@@ -241,7 +241,7 @@ async function main() {
     .filter(name => name !== "..");
 
     info = await Promise.all(folderNames.map( async (element) => {
-      let infojson = await fetch(`http://127.0.0.1:5500/songs/${element}/info.json`);
+      let infojson = await fetch(`/songs/${element}/info.json`);
       infojson = await infojson.json();
       return { element, data: infojson };
     }
